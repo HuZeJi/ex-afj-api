@@ -2,6 +2,8 @@ const userController = require("../controllers/userController");
 const movementController = require("../controllers/movementsController");
 const budgetController = require("../controllers/budgetController");
 
+const cors = require("cors");
+
 exports.assignRoutes = function (app) {
     app.use(function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
@@ -12,6 +14,8 @@ exports.assignRoutes = function (app) {
         res.header("Access-Control-Allow-Headers", "Content-Type");
         next();
     });
+
+    app.use(cors());
 
     app.get("/", function (req, res) {
         res.send("gyt-api-ex-innovation is Running well...");
@@ -43,6 +47,12 @@ exports.assignRoutes = function (app) {
         userController.deleteUser(req.body.userMail).then((result) => {
             res.json(result);
         });
+    });
+
+    app.get("/users", function (req, res) {
+      userController.getAllUsers().then((result) => {
+        res.json(result);
+      });
     });
 
     app.post("/movements", (req, res) => {

@@ -31,12 +31,19 @@ async function loadRoutes() {
 module.exports = app;
 
 try {
-    var logger = log4js.getLogger("ex-afja-api/index.js");
-    app.use(bodyParser.urlencoded({ limit: '5000mb', extended: true, parameterLimit: 50000 }));
-    app.use(bodyParser.json({ limit: '5000mb', extended: true }));
-    loadRoutes();
+  var logger = log4js.getLogger("ex-afja-api/index.js");
+  app.use(
+    bodyParser.urlencoded({
+      limit: "5000mb",
+      extended: true,
+      parameterLimit: 50000,
+    })
+  );
+  app.use(bodyParser.json({ limit: "5000mb", extended: true }));
 
-    app.timeout = 120000;
+  loadRoutes();
+
+  app.timeout = 120000;
 } catch (error) {
     logger.error(error);
 }
