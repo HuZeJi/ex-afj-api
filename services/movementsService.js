@@ -23,7 +23,8 @@ function getMovementsByUser(userMail) {
             { userMail: userMail, status: true },
             (err, data) => {
                 if (err) resolve({ error: err });
-                else if (!data) resolve({ error: "Data not found!" });
+                else if (!data || data.length <= 0)
+                  resolve({ error: "Data not found!" });
                 else resolve({ data: data });
             }
         );

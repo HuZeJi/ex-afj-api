@@ -4,10 +4,11 @@ const encryption = require("./../controllers/encryption");
 const userSchema = require("../models/userSchema");
 
 module.exports = {
-    setUser,
-    authenticateUser,
-    updateUser,
-    deleteUser,
+  setUser,
+  authenticateUser,
+  updateUser,
+  deleteUser,
+  getAllUsers,
 };
 
 function setUser(user) {
@@ -38,18 +39,18 @@ function userToSchema(user) {
 }
 
 function getAllUsers() {
-    user = new userSchema();
     return new Promise((resolve, reject) => {
-        resolve(
-            user.find((err, users) => {
+        userSchema.find((err, user) => {
+            if (!user) {
+                resolve({ status: 204, error: "No users" });
+            } else {
                 if (!err) {
-                    return res.send(users);
+                    resolve({ status: 200, data: user });
                 } else {
-                    resolve.statusCode = 500;
-                    return reject.send({ error: "Server error" });
+                    resolve({ status: 500, error: "Server error" });
                 }
-            })
-        );
+            }
+        });
     });
 }
 
@@ -78,8 +79,9 @@ function authenticateUser(userMail, password) {
         userSchema.findById(userMail, (err, user) => {
             if (!user) {
                 resolve({
-                    status: 204,
-                    error: "No user for email " + userMail,
+                    status: 401,
+                    error:
+                        "Credentials unauthorized for mail " + userMail,
                 });
             } else {
                 if (!err) {
@@ -89,8 +91,9 @@ function authenticateUser(userMail, password) {
                     };
                     const passDecrypted = encryption.decrypt(passToDecrypt);
                     if (
-                        passDecrypted === password.trim() &&
-                        user.status !== false
+                        (passDecrypted === password.trim() &&
+                        user.status !== false) ||
+                        user.provider.toLowerCase() === 'google'
                     ) {
                         resolve({ status: 200, data: true });
                     } else {

@@ -4,10 +4,11 @@ const log4js = require("log4js");
 const logger = log4js.getLogger("userController");
 
 module.exports = {
-    setUser,
-    authorizeCredentials,
-    updateUser,
-    deleteUser,
+  setUser,
+  authorizeCredentials,
+  updateUser,
+  deleteUser,
+  getAllUsers,
 };
 
 function setUser(user) {
@@ -80,4 +81,31 @@ function deleteUser(userMail) {
             resolve({ status: 500, error: err });
         }
     });
+}
+
+function getAllUsers() {
+  logger.level = "debug";
+  logger.debug("Starting get budgets by user process!");
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await userService.getAllUsers();
+      logger.info(response);
+      let status;
+      if (response.error) {
+        status = 500;
+        logger.error(response.error);
+      } else {
+        status = 200;
+        logger.debug("Get all users process success");
+      }
+      resolve({
+        status: status,
+        data: response.data,
+        error: response.error,
+      });
+    } catch (ex) {
+      logger.error(ex);
+      resolve({ status: 500, error: ex });
+    }
+  });
 }
