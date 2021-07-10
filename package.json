@@ -1,26 +1,29 @@
 {
-    "name": "structure-nodejs",
-    "version": "0.0.0",
-    "private": true,
-    "scripts": {
-        "log": "forever logs 0 -f -n 5000",
-        "start": "nodemon --harmony --exitcrash ./bin/www",
-        "start-prod": "nodemon --exitcrash --exec forever start --spinSleepTime 10000 --minUptime 5000 ./bin/www"
-    },
-    "dependencies": {
-        "cookie-parser": "~1.4.4",
-        "cors": "^2.8.5",
-        "crypto": "^1.0.1",
-        "debug": "~2.6.9",
-        "dotenv": "^8.2.0",
-        "express": "~4.16.1",
-        "log4js": "^6.3.0",
-        "mongoose": "^5.12.13",
-        "morgan": "^1.10.0",
-        "tail": "^2.0.4"
-    },
-    "devDependencies": {
-        "forever": "^3.0.2",
-        "nodemon": "^2.0.5"
-    }
+  "name": "structure-nodejs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "log": "forever logs 0 -f -n 5000",
+    "start": "nodemon --harmony --exitcrash ./bin/www",
+    "start-prod": "nodemon --exitcrash --exec forever start --spinSleepTime 10000 --minUptime 5000 ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "log4js": "^6.3.0",
+    "mongoose": "^5.12.13",
+    "morgan": "^1.10.0",
+    "tail": "^2.0.4"
+  },
+  "devDependencies": {
+    "forever": "^3.0.2",
+    "nodemon": "^2.0.5"
+  },
+  "engines": {
+    "node": "14.x"
+  }
 }
