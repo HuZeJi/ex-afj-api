@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "log": "forever logs 0 -f -n 5000",
-    "start": "node index.js",
+    "start": "nodemon --harmony --exitcrash ./bin/www",
     "start-prod": "nodemon --exitcrash --exec forever start --spinSleepTime 10000 --minUptime 5000 ./bin/www"
   },
   "dependencies": {
